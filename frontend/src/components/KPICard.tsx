@@ -2,15 +2,22 @@ interface Props {
   label: string;
   value: string | number;
   sub?: string;
-  accent?: string;
+  tone?: "ember" | "moss" | "mist" | "alert";
 }
 
-export default function KPICard({ label, value, sub, accent = "text-orange-600" }: Props) {
+const tones = {
+  ember: "text-ember-400",
+  moss: "text-moss-400",
+  mist: "text-mist-100",
+  alert: "text-red-400",
+};
+
+export default function KPICard({ label, value, sub, tone = "ember" }: Props) {
   return (
-    <div className="bg-white rounded-lg shadow p-4 border border-slate-100">
-      <p className="text-xs uppercase tracking-wider text-slate-500">{label}</p>
-      <p className={`text-3xl font-bold mt-1 ${accent}`}>{value}</p>
-      {sub && <p className="text-xs text-slate-400 mt-1">{sub}</p>}
+    <div className="rounded-2xl border border-white/10 bg-ink-800/80 px-4 py-3 min-w-[140px] backdrop-blur">
+      <p className="text-[10px] uppercase tracking-[0.18em] text-mist-400 font-medium">{label}</p>
+      <p className={`font-display text-2xl font-semibold mt-1 tabular-nums ${tones[tone]}`}>{value}</p>
+      {sub && <p className="text-[11px] text-mist-500 mt-1">{sub}</p>}
     </div>
   );
 }

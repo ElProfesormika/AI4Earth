@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, CircleMarker, Polyline, Popup } from "react-le
 import { getTodayRoute, optimizeRoute } from "../api/routes";
 import { listDCPI } from "../api/dcpi";
 import KPICard from "../components/KPICard";
+import { DARK_TILES } from "../lib/theme";
+import "leaflet/dist/leaflet.css";
 
 const DEPOT: [number, number] = [12.9716, 77.5946];
 
@@ -29,30 +31,34 @@ export default function RoutesModule() {
   ];
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-4 flex gap-4 items-center border-b bg-white">
+    <div className="h-full flex flex-col bg-ink-950">
+      <div className="px-6 py-4 flex flex-wrap gap-3 items-center border-b border-white/10 bg-ink-900/70">
+        <div className="mr-auto">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-ember-400">OR-Tools</p>
+          <h2 className="font-display text-xl font-semibold">Collection tour</h2>
+        </div>
         <button
           onClick={() => optimize.mutate()}
           disabled={optimize.isPending}
-          className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 disabled:opacity-50"
+          className="px-4 py-2.5 bg-ember-600 text-white rounded-xl font-medium text-sm hover:bg-ember-500 disabled:opacity-50 shadow-glow"
         >
-          {optimize.isPending ? "Optimizing..." : "Optimize Route"}
+          {optimize.isPending ? "Optimizing…" : "Optimize route"}
         </button>
         {route && (
           <>
-            <KPICard label="Distance" value={`${route.distance_km.toFixed(1)} km`} />
+            <KPICard label="Distance" value={`${route.distance_km.toFixed(1)} km`} tone="mist" />
             <KPICard label="Fuel saving" value={`${route.expected_fuel_saving_pct}%`} />
-            <KPICard label="CO₂ saved" value={`${route.expected_co2_saving_kg} kg`} accent="text-green-600" />
+            <KPICard label="CO₂ saved" value={`${route.expected_co2_saving_kg} kg`} tone="moss" />
           </>
         )}
       </div>
-      <div className="flex-1">
+      <div className="flex-1 min-h-0">
         {isLoading ? (
-          <p className="p-6">Loading route...</p>
+          <p className="p-6 text-mist-400">Loading route…</p>
         ) : (
           <MapContainer center={DEPOT} zoom={13} style={{ height: "100%", width: "100%" }}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <CircleMarker center={DEPOT} radius={10} pathOptions={{ fillColor: "#2563EB", color: "#111" }}>
+            <TileLayer url={DARK_TILES} />
+            <CircleMarker center={DEPOT} radius={11} pathOptions={{ fillColor: "#60a5fa", color: "#93c5fd", weight: 2 }}>
               <Popup>Depot</Popup>
             </CircleMarker>
             {stops.map((id, i) => {
@@ -63,7 +69,7 @@ export default function RoutesModule() {
                   key={id}
                   center={[b.lat, b.lon]}
                   radius={8}
-                  pathOptions={{ fillColor: "#EA580C", color: "#111" }}
+                  pathOptions={{ fillColor: "#e85d25", color: "#ffb347", weight: 1.5 }}
                 >
                   <Popup>
                     Stop {i + 1}: {b.name} (DCPI {b.dcpi.toFixed(0)})
@@ -71,7 +77,9 @@ export default function RoutesModule() {
                 </CircleMarker>
               );
             })}
-            {polyline.length > 1 && <Polyline positions={polyline} pathOptions={{ color: "#EA580C", weight: 3 }} />}
+            {polyline.length > 1 && (
+              <Polyline positions={polyline} pathOptions={{ color: "#f08c2e", weight: 3, opacity: 0.9 }} />
+            )}
           </MapContainer>
         )}
       </div>

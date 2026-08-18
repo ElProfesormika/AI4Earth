@@ -6,3 +6,60 @@ html, body, #root {
   height: 100%;
   margin: 0;
 }
+
+body {
+  background: #07090b;
+  color: #e8efe8;
+  font-family: Figtree, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0c1116; }
+::-webkit-scrollbar-thumb { background: #24303a; border-radius: 99px; }
+
+.leaflet-container {
+  background: #0c1116;
+  font-family: Figtree, sans-serif;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #121920;
+  color: #e8efe8;
+  border: 1px solid #24303a;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  font-size: 13px;
+}
+
+.leaflet-control-zoom a {
+  background: #121920 !important;
+  color: #e8efe8 !important;
+  border-color: #24303a !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(7, 9, 11, 0.7) !important;
+  color: #6b7c86 !important;
+}
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.live-dot {
+  animation: pulse-live 1.6s ease-in-out infinite;
+}
+
+.grid-noise {
+  background-image:
+    linear-gradient(rgba(232, 93, 37, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 93, 37, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
