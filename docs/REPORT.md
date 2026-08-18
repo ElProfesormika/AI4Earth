@@ -588,6 +588,21 @@ This matters for judging because it proves the platform can be run as a cohesive
 
 This cut-line was deliberate. We prioritized a **working end-to-end prototype** over unfinished hardware theater.
 
+### Important note on the nature of this build
+
+This prototype is a **test implementation** designed to validate, from end to end, what our solution is capable of — partially today, and fully once physical hardware is introduced. The goal was to prove the entire software pipeline works cohesively before investing in sensor procurement and field deployment.
+
+If we want to move to a **physical deployment**, the path is straightforward:
+
+- replace the simulator with real Raspberry Pi units equipped with cameras, ultrasonic sensors, load cells, and gas/temperature/humidity probes
+- the MQTT topics, payload format, and backend ingestion are already designed to accept `source: "hardware"` alongside `source: "simulator"` — no backend change is needed
+- the YOLO model would run on-device (INT8 TFLite) and publish classifications on the same API contract
+- the database, DCPI engine, routing, XAI, and frontend remain **unchanged**
+
+This is the key architectural property: **interoperability**. Every layer communicates through well-defined interfaces (MQTT topics, REST endpoints, JSON schemas). Swapping a simulated edge for a physical edge does not require rewriting the cloud or the dashboard. This makes the system easily integrable with any hardware vendor or sensor kit that can publish JSON over MQTT.
+
+In short: the software is production-shaped today. The hardware integration is an operational step, not an engineering redesign.
+
 ---
 
 ## Why this project is technically meaningful
