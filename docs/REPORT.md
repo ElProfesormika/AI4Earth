@@ -631,7 +631,6 @@ At that point, SmartWasteAI could move from a strong hackathon system into a pub
 |---|---|
 | Full specification | `SPEC.md` |
 | This technical write-up | `docs/REPORT.md` |
-| Video scripts | `docs/video-scripts.md` |
 | API reference | `docs/api.md` |
 | Demo checklist | `docs/demo-script.md` |
 
