@@ -96,3 +96,4 @@ docker compose run --rm ml python -m src.training.train_yolo
 ## License
 
 MIT
+https://github.com/ElProfesormika/AI4Earth/blob/main/LICENSE
