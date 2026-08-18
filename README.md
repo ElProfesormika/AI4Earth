@@ -9,9 +9,12 @@ A Federated, Explainable AI Framework for Predictive Urban Waste Management with
 
 40 virtual bins across 4 districts stream telemetry via MQTT → DCPI ranks priority → OR-Tools optimizes routes → React dashboard shows live map, forecasts, KPIs, and Digital Twin.
 
-## Architecture
+## Documentation
 
-See [SPEC.md](./SPEC.md) for the full specification.
+- [Technical report](./docs/REPORT.md) — problem, architecture, algorithms, API, how to run  
+- [Video scripts](./docs/video-scripts.md) — Demo (2–5 min) and Workflow (2 min) voice-over  
+- [SPEC.md](./SPEC.md) — full implementation specification  
+- [API](./docs/api.md) · [Architecture](./docs/architecture.md) · [Live demo checklist](./docs/demo-script.md)
 
 ```
 Edge (simulator) → MQTT → FastAPI + TimescaleDB → DCPI / WQS / XGBoost / OR-Tools / SHAP
