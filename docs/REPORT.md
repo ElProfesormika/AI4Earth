@@ -640,6 +640,22 @@ At that point, SmartWasteAI could move from a strong hackathon system into a pub
 
 ---
 
+## APP SCREENS
+
+
+<img width="1917" height="952" alt="Screenshot 2026-08-18 at 09-27-09 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/cafb254a-6d01-485a-b768-51446b43ff5f" />
+
+<img width="1917" height="961" alt="Screenshot 2026-08-18 at 09-27-48 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/11fa293a-a1d5-44db-9257-479bda5dbefd" />
+
+<img width="1917" height="961" alt="Screenshot 2026-08-18 at 09-28-00 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/da9d2f42-8722-40f1-b307-da253365db17" />
+
+<img width="1917" height="961" alt="Screenshot 2026-08-18 at 09-28-15 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/50dd19d0-2fba-4df7-98cd-59ba0523e8e4" />
+
+<img width="1917" height="958" alt="Screenshot 2026-08-18 at 09-28-25 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/21383fbf-3987-4580-b4a2-ec45363e2904" />
+
+<img width="1917" height="955" alt="Screenshot 2026-08-18 at 09-28-35 SmartWasteAI · Command Center" src="https://github.com/user-attachments/assets/0bc5da5a-c043-4874-ad46-6442a54fac6f" />
+
+
 ## Submission references
 
 | Asset | Location |
