@@ -1,0 +1,33 @@
+city_name: DemoCity
+districts:
+  - name: Downtown
+    bins: 12
+    center: [12.9720, 77.5950]
+    fill_rate_per_hour: [2, 5]
+  - name: Residential-North
+    bins: 10
+    center: [12.9820, 77.5800]
+    fill_rate_per_hour: [1, 3]
+  - name: Market
+    bins: 10
+    center: [12.9660, 77.5810]
+    fill_rate_per_hour: [4, 8]
+  - name: Industrial
+    bins: 8
+    center: [12.9550, 77.6100]
+    fill_rate_per_hour: [1, 2]
+
+events:
+  - name: Weekend Market Festival
+    district: Market
+    start_offset_hours: 6
+    duration_hours: 12
+    multiplier: 2.5
+
+weather:
+  base_temp_c: 28
+  daily_amplitude_c: 6
+  base_humidity_pct: 65
+
+collection:
+  reset_prob_on_full: 0.6

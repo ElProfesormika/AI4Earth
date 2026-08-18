@@ -1,0 +1,72 @@
+services:
+  db:
+    image: timescale/timescaledb:2.17.2-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports: ["5432:5432"]
+    volumes: [dbdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 5s
+      retries: 10
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    ports: ["1883:1883"]
+    volumes: [./scripts/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro]
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PYTHONPATH: /app
+    ports: ["8000:8000"]
+    depends_on:
+      db: { condition: service_healthy }
+      mqtt: { condition: service_started }
+    volumes:
+      - ./ml/models:/app/models:ro
+      - ./scripts:/app/scripts:ro
+      - ./simulator/config:/app/simulator/config:ro
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    command: >
+      bash -c "alembic upgrade head &&
+               python /app/scripts/seed_demo_data.py &&
+               uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  simulator:
+    build: ./simulator
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      mqtt: { condition: service_started }
+      backend: { condition: service_started }
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports: ["5173:5173"]
+    environment:
+      VITE_API_BASE: http://localhost:8000
+    depends_on: [backend]
+
+  ml:
+    build: ./ml
+    profiles: ["training"]
+    env_file: .env
+    volumes:
+      - ./ml/datasets:/app/datasets
+      - ./ml/models:/app/models
+
+volumes:
+  dbdata:
